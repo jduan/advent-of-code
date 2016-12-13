@@ -80,9 +80,12 @@ data Segment =
   Segment Coordinate
           Coordinate
 
--- areSegmentsOverlapped :: Segment -> Segment -> Maybe Coordinate
--- areSegmentsOverlapped (Segment coord1 coord2) (Segment coor)
-main :: IO ()
-main =
-  let coord = calculateBlocks input
-  in print $ blocksAway coord
+-- If two coordinates overlap, return the intersection. Otherwise, return
+-- nothing.
+areSegmentsOverlapped :: Segment -> Segment -> Maybe Coordinate
+areSegmentsOverlapped (Segment (Coordinate x1 y1) (Coordinate x2 y2)) (Segment (Coordinate x3 y3) (Coordinate x4 y4)) =
+  Nothing
+-- main :: IO ()
+-- main =
+--   let coord = calculateBlocks input
+--   in print $ blocksAway coord
