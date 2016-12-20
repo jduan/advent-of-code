@@ -1,5 +1,7 @@
 module Y2016.Day2 where
 
+import Data.List (foldl')
+
 data Direction
   = L
   | R
@@ -7,11 +9,19 @@ data Direction
   | D
   deriving (Show, Eq)
 
-mkDirection 'U' = U
-mkDirection 'D' = D
-mkDirection 'L' = L
-mkDirection 'R' = R
-mkDirection _ = error "Invalid direction!"
+data DirectionError
+  = Invalid
+  | Stupid
+  deriving (Show, Eq)
+
+type DirectionResult = Either DirectionError Direction
+
+mkDirection :: Char -> DirectionResult
+mkDirection 'U' = Right U
+mkDirection 'D' = Right D
+mkDirection 'L' = Right L
+mkDirection 'R' = Right R
+mkDirection _ = Left Invalid
 
 move
   :: (Num a, Num t, Eq a)
@@ -49,9 +59,13 @@ move 9 U = 6
 move 9 L = 8
 move 9 _ = 9
 
-toDirections :: String -> [Direction]
-toDirections = map mkDirection
+toDirections :: String -> Either DirectionError [Direction]
+toDirections s = sequence $ map mkDirection s
 
-makeMoves start input = foldl move start directions
-  where
-    directions = toDirections input
+makeMoves
+  :: (Num b, Eq b)
+  => b -> String -> Either [Char] b
+makeMoves start input =
+  case toDirections input of
+    Left dr -> Left "Direction error"
+    Right directions -> Right $ foldl' move start directions

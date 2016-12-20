@@ -13,24 +13,22 @@ spec :: Spec
 spec = do
   describe "2016 day 2" $ do
     it "mkDirection" $ do
-      mkDirection 'U' `shouldBe` U
-      mkDirection 'D' `shouldBe` D
-      mkDirection 'L' `shouldBe` L
-      mkDirection 'R' `shouldBe` R
+      mkDirection 'U' `shouldBe` Right U
+      mkDirection 'D' `shouldBe` Right D
+      mkDirection 'L' `shouldBe` Right L
+      mkDirection 'R' `shouldBe` Right R
+      mkDirection 'Z' `shouldBe` Left Invalid
 
     it "move should work" $ do
       move 5 U `shouldBe` 2
 
     it "toDirections should work" $ do
-      toDirections "LRDLU" `shouldBe` [L, R, D, L, U]
+      toDirections "LRDLU" `shouldBe` Right [L, R, D, L, U]
+      toDirections "LRDLUZZZZ" `shouldBe` Left Invalid
 
     it "makeMoves should work" $ do
-      makeMoves 5 "LRDLU" `shouldBe` 4
-      makeMoves 5 line1 `shouldBe` 9
-      makeMoves 5 line2 `shouldBe` 5
-      makeMoves 5 line3 `shouldBe` 5
-      makeMoves 5 line4 `shouldBe` 4
-      makeMoves 5 line5 `shouldBe` 9
+      makeMoves 5 "LRDLU" `shouldBe` Right 4
+      makeMoves 5 "LRDLUZZZZZ" `shouldBe` Left "Direction error"
 
 
 main :: IO ()
