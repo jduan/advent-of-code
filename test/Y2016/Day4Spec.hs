@@ -6,7 +6,7 @@ import Y2016.Day4
 
 spec :: Spec
 spec = do
-  describe "2016 day 3" $ do
+  describe "2016 day 4" $ do
     it "parse should work" $ do
       parse "aaaaa-bbb-z-y-x-123[abxyz]" `shouldBe` ("aaaaa-bbb-z-y-x", 123, "abxyz")
 
