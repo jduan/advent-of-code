@@ -10,6 +10,9 @@ spec = do
     it "password should work" $ do
       password `shouldBe` "c6697b55"
 
+    it "password2 should work" $ do
+      password2 getPositionsAndSecrets `shouldBe` "8c35d1ab"
+
 
 main :: IO ()
 main = hspec spec
